@@ -44,18 +44,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="100ms" />
 
-    <ImageView
-        android:id="@+id/btnCapture"
-        android:layout_width="68dp"
-        android:layout_height="65dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_finder"
-        app:srcCompat="@drawable/radiobox_marked" />
-
     <TextView
         android:id="@+id/titletv"
         android:layout_width="wrap_content"
@@ -66,8 +54,61 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    <ImageView-->
-    <!--        android:id="@+id/ivTop"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"/>-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/flowerInfoLayout"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:background="#CC000000" android:padding="16dp"-->
+<!--        android:visibility="gone" app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        android:translationZ="10dp">-->
+
+<!--        <TextView-->
+<!--        android:id="@+id/flowerNameTextView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="22sp"-->
+<!--        android:textStyle="bold"-->
+<!--        tools:text=""-->
+<!--            />-->
+
+<!--        <TextView-->
+<!--        android:id="@+id/confidenceTextView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="16sp"-->
+<!--        android:layout_marginTop="4dp"-->
+<!--        tools:text=""-->
+<!--            />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/moreInfoButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Más Información"-->
+<!--            android:layout_gravity="end"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:backgroundTint="#673AB7"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:visibility="gone" tools:visibility="visible"-->
+<!--            />-->
+<!--    </LinearLayout>-->
+
+    <ImageView
+        android:id="@+id/btnCapture"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_finder"
+        app:srcCompat="@drawable/radiobox_marked"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

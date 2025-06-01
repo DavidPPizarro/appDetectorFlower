@@ -3,19 +3,19 @@ package com.surendramaran.yolov8tflite
 // Importaciones necesarias para permisos, cámara, gráficos, etc.
 import android.Manifest
 import android.content.ContentValues
-import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
-import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +28,7 @@ import com.surendramaran.yolov8tflite.Constants.MODEL_PATH
 import com.surendramaran.yolov8tflite.databinding.ActivityMainBinding
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import android.net.Uri
 
 class MainActivity : AppCompatActivity(), Detector.DetectorListener {
 
@@ -54,6 +55,14 @@ class MainActivity : AppCompatActivity(), Detector.DetectorListener {
     // Última imagen analizada
     var lastBitmap: Bitmap? = null
 
+    // Elementos de la interfaz para mostrar información de flores detectadas
+    private lateinit var flowerInfoLayout: LinearLayout
+    private lateinit var flowerNameTextView: TextView
+    private lateinit var confidenceTextView: TextView
+    private lateinit var moreInfoButton: Button
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -61,6 +70,12 @@ class MainActivity : AppCompatActivity(), Detector.DetectorListener {
         // Enlazar layout con binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        flowerInfoLayout = findViewById(R.id.flowerInfoLayout)
+//        flowerNameTextView = findViewById(R.id.flowerNameTextView)
+//        confidenceTextView = findViewById(R.id.confidenceTextView)
+//        moreInfoButton = findViewById(R.id.moreInfoButton)
+
 
         // Configura el botón para capturar y guardar la imagen detectada
         binding.btnCapture.setOnClickListener {
@@ -82,6 +97,24 @@ class MainActivity : AppCompatActivity(), Detector.DetectorListener {
         }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
+
+        // Configurar el listener para el botón "Más Información"
+//        moreInfoButton.setOnClickListener {
+//            val flowerFullName = flowerNameTextView.text.toString()
+//            val flowerNameOnly = if (flowerFullName.contains(" (")) {
+//                flowerFullName.substringBefore(" (")
+//            } else {
+//                flowerFullName
+//            }
+//
+//            val url = "https://es.wikipedia.org/wiki/${flowerNameOnly.replace(" ", "_")}"
+//            try {
+//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+//                startActivity(intent)
+//            } catch (e: Exception) {
+//                Toast.makeText(this, "No se pudo abrir la URL", Toast.LENGTH_SHORT).show()
+//            }
+//        }
     }
 
     override fun onDestroy() {
@@ -244,6 +277,7 @@ class MainActivity : AppCompatActivity(), Detector.DetectorListener {
         runOnUiThread {
             binding.overlay.clear()
             binding.overlay.setResults(emptyList())
+//            hideFlowerResult()
         }
     }
 
@@ -255,5 +289,56 @@ class MainActivity : AppCompatActivity(), Detector.DetectorListener {
                 invalidate()
             }
         }
+
+        // AQUI ES DONDE LLAMAMOS A displayFlowerResult
+//        if (boundingBoxes.isNotEmpty()) {
+//            // Selecciona la detección con la mayor confianza
+//            val bestDetection = boundingBoxes.maxByOrNull { it.cnf }
+//
+//            bestDetection?.let { detection ->
+//                val className = detection.clsName // Usamos 'clsName' directamente
+//                val confidence = detection.cnf    // Usamos 'cnf' para la confianza
+//
+//                // Obtiene el nombre científico usando la función auxiliar
+//                val scientificName = getScientificNameForFlower(className)
+//
+//                // Llama a displayFlowerResult para actualizar la UI
+//                runOnUiThread {
+//                    displayFlowerResult(className, scientificName, confidence)
+//                }
+//            }
+//        } else {
+//            // Si no hay detecciones, oculta la información
+//            hideFlowerResult()
+//        }
     }
+
+    // Función auxiliar para mapear el nombre común al nombre científico
+//    private fun getScientificNameForFlower(commonName: String): String {
+//        return when (commonName.toLowerCase()) { // Convertir a minúsculas para una comparación flexible
+//            "rosa" -> "Rosa spp."
+//            "girasol" -> "Helianthus annuus"
+//            "tulipán" -> "Tulipa spp."
+//            "crisantemo" -> "Chrysanthemum spp."
+//            "Delfinio" -> "Delphinium spp."
+//            "Clavel" -> "Dianthus caryophyllus"
+//            // Agrega más mapeos según las clases que tu modelo detecte
+//            else -> "" // Devuelve vacío si no se encuentra un nombre científico
+//        }
+//    }
+
+//    fun displayFlowerResult(flowerName: String, scientificName: String, confidence: Float) {
+//        // Formatear el nombre para incluir el nombre científico si está disponible
+//        val fullFlowerName = if (scientificName.isNotEmpty()) "$flowerName ($scientificName)" else flowerName
+//        flowerNameTextView.text = fullFlowerName
+//        confidenceTextView.text = "Confianza: ${"%.1f".format(confidence * 100)}%" // Formatear a un decimal
+//
+//        // Haz visible el layout de información
+//        flowerInfoLayout.visibility = View.VISIBLE
+//        moreInfoButton.visibility = View.VISIBLE // Si quieres que el botón aparezca solo con el resultado
+//    }
+//
+//    fun hideFlowerResult() {
+//        flowerInfoLayout.visibility = View.GONE
+//    }
 }
